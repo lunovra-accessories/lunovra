@@ -257,6 +257,7 @@
         function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
 
         window.onload = () => {
+            android.onload = () => {
             displayProducts();
             updateCartUI();
         };
