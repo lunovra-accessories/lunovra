@@ -10,7 +10,7 @@
 
 | الخدمة | الرابط المباشر |
 | :--- | :--- |
-| **المتجر المباشر (Live Site)** | [👉 اضغط هنا لفتح المتجر]( https://luxora-accessories.github.io/luxo-r/) |
+| **المتجر المباشر (Live Site)** | [👉 اضغط هنا لفتح المتجر]( https://luxora-accessories.github.io/luxo-ra/)|
 
 ---
 
