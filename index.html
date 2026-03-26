@@ -161,7 +161,7 @@
 <body id="body">
 
     <header id="header">
-        <div class="logo">Luxora</div>
+        <div class="logo">LUXORA</div>
         <div class="cart-icon" onclick="toggleCart()">
             🛒 <span id="cart-count">0</span>
         </div>
@@ -220,7 +220,7 @@
                 <div class="product-card" onclick="openModal(${p.id})">
                     <img src="${p.img}">
                     <h3>${p.name}</h3>
-                    <div class="price">${p.price} ر.س</div>
+                    <div class="price">${p.price} درهم</div>
                 </div>
             `).join('');
         }
@@ -228,7 +228,7 @@
         function openModal(id) {
             const p = products.find(prod => prod.id === id);
             document.getElementById('modal-title').innerText = p.name;
-            document.getElementById('modal-price').innerText = p.price + " ر.س";
+            document.getElementById('modal-price').innerText = p.price + " درهم";
             document.getElementById('modal-description').innerText = p.description;
             document.getElementById('modal-image').src = p.img;
             document.getElementById('product-qty').value = 1;
@@ -265,12 +265,12 @@
                     <button onclick="removeFromCart(${item.cartId})" style="border:none; color:red; background:none; cursor:pointer;">حذف</button>
                 </div>`;
             }).join('');
-            document.getElementById('cart-total').innerText = "الإجمالي: " + total + " ر.س";
+            document.getElementById('cart-total').innerText = "الإجمالي: " + total + " درهم";
         }
 
         function removeFromCart(cartId) {
             cart = cart.filter(item => item.cartId !== cartId);
-            localStorage.setItem('luxe_cart', JSON.stringify(cart));
+            localStorage.setItem('luxora_cart', JSON.stringify(cart));
             updateCartUI();
         }
 
@@ -282,7 +282,7 @@
         function sendWhatsApp() {
             if (cart.length === 0) return;
             const phone = "212621445495";
-            let msg = "طلب جديد من Luxe:\n";
+            let msg = "طلب جديد من Luxora:\n";
             cart.forEach(i => msg += `- ${i.name} (عدد: ${i.qty})\n`);
             msg += `\nإجمالي المبلغ: ${document.getElementById('cart-total').innerText}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
