@@ -12,18 +12,22 @@
             --dark: #1a1a1a;
             --light: #fdfdfd;
             --glass-bg: rgba(255, 255, 255, 0.85);
+            --shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
             --whatsapp: #25D366;
+            --danger: #e74c3c;
         }
 
         * { 
             margin: 0; padding: 0; box-sizing: border-box; 
             font-family: 'Cairo', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body { 
             background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
             color: var(--dark); 
             overflow-x: hidden; 
+            min-height: 100vh; 
         }
 
         .top-container {
@@ -31,29 +35,34 @@
             top: 0;
             z-index: 1000;
             width: 100%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
         .announcement-bar {
             background-color: var(--primary);
             color: white;
-            padding: 10px 0;
+            padding: 8px 0;
+            text-align: center;
             overflow: hidden;
             width: 100%;
-            display: flex;
+            /* جعل اتجاه الحاوية من اليسار لليمين لضبط حركة الأنميشن بدقة */
+            direction: ltr; 
         }
 
         .announcement-text {
             display: inline-block;
+            white-space: nowrap;
+            /* تم عكس الحركة لتبدأ من اليمين */
+            animation: moveText 15s linear infinite;
             font-size: 14px;
             font-weight: 600;
-            white-space: nowrap;
-            /* سرعة هادئة 20 ثانية وبداية فورية من الحافة */
-            animation: moveText 20s linear infinite;
+            padding-right: 50px;
         }
 
+        /* تعديل الأنميشن ليأتي من اليمين إلى اليسار */
         @keyframes moveText {
-            0% { transform: translateX(100vw); } 
-            100% { transform: translateX(-100%); }
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         header { 
@@ -63,8 +72,7 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            direction: rtl;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            direction: rtl; /* العودة للاتجاه العربي للرأس */
         }
 
         .logo { font-size: 26px; font-weight: 800; color: var(--primary); letter-spacing: 1px; }
@@ -88,43 +96,73 @@
         @media (min-width: 768px) {
             main { grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 40px 8%; }
         }
+        @media (min-width: 1024px) {
+            main { grid-template-columns: repeat(4, 1fr); }
+        }
 
         .product-card { 
             background: white; padding: 12px; border-radius: 15px; text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer;
+            overflow: hidden;
         }
-        .product-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; margin-bottom: 10px; }
-        .product-card h3 { font-size: 0.9rem; margin-bottom: 6px; font-weight: 700; height: 2.4em; overflow: hidden; }
-        .product-card .price { color: var(--primary); font-weight: bold; }
+        .product-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 12px 25px rgba(184, 134, 11, 0.15); 
+        }
+        .product-card img { 
+            width: 100%; 
+            height: 160px; 
+            object-fit: cover; border-radius: 12px; margin-bottom: 10px; 
+            transition: transform 0.5s ease;
+        }
+        
+        @media (min-width: 768px) {
+            .product-card img { height: 200px; }
+        }
+
+        .product-card:hover img { transform: scale(1.1); }
+        .product-card h3 { font-size: 0.9rem; margin-bottom: 6px; height: 2.4em; overflow: hidden; font-weight: 700; }
+        .product-card .price { color: var(--primary); font-weight: bold; font-size: 1rem; }
 
         .modal { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.6); z-index: 2000; justify-content: center; align-items: center; 
+            padding: 20px; backdrop-filter: blur(5px);
         }
 
         .modal-content { 
-            background: white; width: 90%; max-width: 800px; border-radius: 25px; 
+            background: white; width: 100%; max-width: 800px; border-radius: 25px; 
             display: flex; flex-wrap: wrap; position: relative; overflow: hidden;
+            animation: modalFade 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
+        @keyframes modalFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .modal-img { flex: 1; min-width: 300px; height: 350px; object-fit: cover; }
+        .modal-img { flex: 1; min-width: 300px; height: 400px; object-fit: cover; }
         .modal-info { flex: 1; padding: 30px; min-width: 300px; }
 
         .add-btn { 
             background: var(--dark); color: white; border: none; padding: 16px; border-radius: 12px; 
-            cursor: pointer; width: 100%; font-weight: 700; margin-top: 20px;
+            cursor: pointer; width: 100%; font-weight: 700; font-size: 16px; margin-top: 20px;
+            transition: 0.3s;
         }
+        .add-btn:hover { background: var(--primary); }
 
         .sidebar { 
-            position: fixed; top: 0; left: -420px; width: 400px; height: 100vh;
-            background: var(--glass-bg); backdrop-filter: blur(25px);
-            z-index: 3000; transition: 0.4s; padding: 40px 30px;
+            position: fixed; 
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            z-index: 3000; opacity: 0; visibility: hidden;
+            transition: all 0.4s ease;
         }
-        .sidebar.active { left: 0; }
 
         @media (max-width: 767px) {
-            .sidebar { width: 100%; left: -100%; }
-            .sidebar.active { left: 0; }
+            .sidebar { top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9); width: 90%; border-radius: 30px; padding: 25px; }
+            .sidebar.active { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @media (min-width: 768px) {
+            .sidebar { top: 0; left: -420px; width: 400px; height: 100vh; padding: 40px 30px; }
+            .sidebar.active { opacity: 1; visibility: visible; left: 0; }
         }
 
         .whatsapp-btn {
@@ -135,18 +173,19 @@
         #toast {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             background: var(--dark); color: white; padding: 12px 30px;
-            border-radius: 50px; opacity: 0; transition: 0.5s; z-index: 4000;
+            border-radius: 50px; font-size: 15px; z-index: 4000;
+            opacity: 0; transition: 0.5s;
         }
     </style>
 </head>
-<body>
+<body id="body">
 
     <div class="top-container">
         <div class="announcement-bar">
             <div class="announcement-text">✨ نقدم تخفيض 50% بمناسبة الافتتاح لمتجر LUXORA ✨</div>
         </div>
 
-        <header>
+        <header id="header">
             <div class="logo">LUXORA</div>
             <div class="cart-icon" onclick="toggleCart()">
                 🛒 <span id="cart-count">0</span>
@@ -160,22 +199,29 @@
 
     <div id="product-modal" class="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
+            <div onclick="closeModal()" style="position: absolute; top: 15px; left: 15px; cursor: pointer; font-size: 20px; background: rgba(0,0,0,0.5); color: white; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center; border-radius: 50%; z-index: 10;">✕</div>
             <img id="modal-image" src="" class="modal-img">
             <div class="modal-info">
-                <h2 id="modal-title"></h2>
-                <p id="modal-price" style="color: var(--primary); font-weight: bold; font-size: 1.3rem;"></p>
-                <p id="modal-description" style="color: #666; margin: 15px 0;"></p>
+                <h2 id="modal-title" style="margin-bottom: 10px;"></h2>
+                <p id="modal-price" style="color: var(--primary); font-weight: bold; font-size: 1.3rem; margin-bottom: 15px;"></p>
+                <p id="modal-description" style="color: #666; line-height: 1.6; margin-bottom: 25px;"></p>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <label>الكمية:</label>
+                    <input type="number" id="product-qty" value="1" min="1" style="width: 80px; padding: 10px; border-radius: 10px; border: 1px solid #ddd; text-align: center;">
+                </div>
                 <button id="modal-add-btn" class="add-btn">إضافة للحقيبة</button>
             </div>
         </div>
     </div>
 
     <div id="cart-sidebar" class="sidebar">
-        <h3 style="color: var(--primary); margin-bottom: 20px;">حقيبة التسوق</h3>
-        <div id="cart-items"></div>
-        <div id="cart-total" style="margin-top: 20px; font-weight: bold; text-align: center;"></div>
+        <div class="cart-header" style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+            <h3 style="color: var(--primary);">حقيبة التسوق</h3>
+            <span style="font-size: 24px; cursor: pointer;" onclick="toggleCart()">✕</span>
+        </div>
+        <div id="cart-items" style="max-height: 60vh; overflow-y: auto;"></div>
+        <div id="cart-total" style="margin-top: 25px; font-weight: bold; font-size: 1.2rem; border-top: 1px solid #eee; padding-top: 20px; text-align: center;"></div>
         <button class="whatsapp-btn" onclick="sendWhatsApp()">إرسال الطلب (واتساب)</button>
-        <button onclick="toggleCart()" style="margin-top: 15px; width: 100%; background: none; border: 1px solid #ccc; padding: 10px; border-radius: 10px; cursor: pointer;">إغلاق</button>
     </div>
 
     <script>
@@ -188,11 +234,13 @@
             { id: 6, name: "خاتم فضة عيار 925 للرجال", price: 7000, description: "خاتم رجالي فضي، مقاس 11.", img: "https://fathyibrahim.com/cdn/shop/files/MR00-3S-8-1_1000x.jpg?v=1742217351" },
         ];
 
+        localStorage.removeItem('luxe_products'); 
+        let products = defaultProducts; 
         let cart = JSON.parse(localStorage.getItem('luxora_cart')) || [];
 
         function displayProducts() {
             const container = document.getElementById('products-container');
-            container.innerHTML = defaultProducts.map(p => `
+            container.innerHTML = products.map(p => `
                 <div class="product-card" onclick="openModal(${p.id})">
                     <img src="${p.img}">
                     <h3>${p.name}</h3>
@@ -202,25 +250,31 @@
         }
 
         function openModal(id) {
-            const p = defaultProducts.find(prod => prod.id === id);
+            const p = products.find(prod => prod.id === id);
             document.getElementById('modal-title').innerText = p.name;
             document.getElementById('modal-price').innerText = p.price + " درهم";
             document.getElementById('modal-description').innerText = p.description;
             document.getElementById('modal-image').src = p.img;
-            document.getElementById('modal-add-btn').onclick = () => addToCart(p);
+            document.getElementById('product-qty').value = 1;
+            document.getElementById('modal-add-btn').onclick = () => addToCart(p, parseInt(document.getElementById('product-qty').value));
             document.getElementById('product-modal').style.display = 'flex';
+            document.body.classList.add('modal-open'); 
         }
 
-        function closeModal() { document.getElementById('product-modal').style.display = 'none'; }
+        function closeModal() { 
+            document.getElementById('product-modal').style.display = 'none'; 
+            document.body.classList.remove('modal-open'); 
+        }
 
-        function addToCart(product) {
-            cart.push({ ...product, cartId: Date.now() });
+        function addToCart(product, qty) {
+            const cartId = Date.now();
+            cart.push({ ...product, qty, cartId });
             localStorage.setItem('luxora_cart', JSON.stringify(cart));
             updateCartUI();
             closeModal();
             const toast = document.getElementById('toast');
             toast.style.opacity = '1';
-            setTimeout(() => toast.style.opacity = '0', 2000);
+            setTimeout(() => { toast.style.opacity = '0'; }, 2000);
         }
 
         function updateCartUI() {
@@ -228,22 +282,39 @@
             const container = document.getElementById('cart-items');
             let total = 0;
             container.innerHTML = cart.map(item => {
-                total += item.price;
-                return `<div style="background: rgba(0,0,0,0.03); margin-bottom: 5px; padding: 10px; border-radius: 8px;">${item.name} - ${item.price} درهم</div>`;
+                total += (item.price * item.qty);
+                return `<div class="cart-item" style="background: rgba(0,0,0,0.03); margin-bottom: 10px; padding: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center;">
+                    <div><strong>${item.name}</strong><br><small>${item.qty} × ${item.price} درهم</small></div>
+                    <button onclick="removeFromCart(${item.cartId})" style="border:none; color:red; background:none; cursor:pointer;">حذف</button>
+                </div>`;
             }).join('');
             document.getElementById('cart-total').innerText = "الإجمالي: " + total + " درهم";
         }
 
-        function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
+        function removeFromCart(cartId) {
+            cart = cart.filter(item => item.cartId !== cartId);
+            localStorage.setItem('luxora_cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-sidebar').classList.toggle('active');
+            document.body.classList.toggle('cart-open');
+        }
 
         function sendWhatsApp() {
+            if (cart.length === 0) return;
             const phone = "212621445495";
-            let msg = "طلب جديد من Luxora:\n" + cart.map(i => `- ${i.name}`).join('\n');
-            msg += `\nالإجمالي: ${document.getElementById('cart-total').innerText}`;
+            let msg = "طلب جديد من Luxora:\n";
+            cart.forEach(i => msg += `- ${i.name} (عدد: ${i.qty})\n`);
+            msg += `\nإجمالي المبلغ: ${document.getElementById('cart-total').innerText}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        window.onload = () => { displayProducts(); updateCartUI(); };
+        window.onload = () => {
+            displayProducts();
+            updateCartUI();
+        };
     </script>
 </body>
 </html>
