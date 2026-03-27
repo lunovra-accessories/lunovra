@@ -39,7 +39,6 @@
             padding: 10px 0;
             overflow: hidden;
             width: 100%;
-            white-space: nowrap;
             display: flex;
         }
 
@@ -47,15 +46,14 @@
             display: inline-block;
             font-size: 14px;
             font-weight: 600;
-            width: 100%;
-            text-align: center;
-            /* تم إبطاء السرعة إلى 18 ثانية وإزالة padding-left القديم */
-            animation: moveText 18s linear infinite;
+            white-space: nowrap;
+            /* سرعة هادئة 20 ثانية وبداية فورية من الحافة */
+            animation: moveText 20s linear infinite;
         }
 
         @keyframes moveText {
-            0% { transform: translateX(100%); } /* يبدأ فوراً من حافة الشاشة اليمنى */
-            100% { transform: translateX(-100%); } /* يخرج تماماً من حافة الشاشة اليسرى */
+            0% { transform: translateX(100vw); } 
+            100% { transform: translateX(-100%); }
         }
 
         header { 
@@ -96,7 +94,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer;
         }
         .product-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; margin-bottom: 10px; }
-        .product-card h3 { font-size: 0.9rem; margin-bottom: 6px; font-weight: 700; }
+        .product-card h3 { font-size: 0.9rem; margin-bottom: 6px; font-weight: 700; height: 2.4em; overflow: hidden; }
         .product-card .price { color: var(--primary); font-weight: bold; }
 
         .modal { 
@@ -182,9 +180,12 @@
 
     <script>
         const defaultProducts = [
-            { id: 1, name: "عقد الزمرد الملكي", price: 3400, description: "عقد يدوي الصنع مرصع بأحجار الزمرد الأصلية.", img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600" },
-            { id: 2, name: "خاتم الألماس الهندسي", price: 1850, description: "تصميم فريد يجمع بين الألماس والذهب الأبيض.", img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600" },
-            { id: 6, name: "خاتم فضة عيار 925", price: 7000, description: "خاتم رجالي فضي فاخر.", img: "https://fathyibrahim.com/cdn/shop/files/MR00-3S-8-1_1000x.jpg?v=1742217351" }
+            { id: 1, name: "عقد الزمرد الملكي", price: 3400, description: "عقد يدوي الصنع مرصع بأحجار الزمرد الأصلية، قطعة نادرة للفخامة.", img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600" },
+            { id: 2, name: "خاتم الألماس الهندسي", price: 1850, description: "تصميم هندسي فريد يجمع بين الألماس النقي والذهب الأبيض.", img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600" },
+            { id: 3, name: "سوار الكريستال الناعم", price: 920, description: "سوار رقيق وبسيط مرصع بالكريستال اللامع لجمال يومي.", img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600" },
+            { id: 4, name: "ساعة كلاسيك الذهبية", price: 5200, description: "ساعة فاخرة بطلاء ذهب عيار 24 قيراط ومينا صدفية.", img: "https://images.unsplash.com/photo-1772949400376-5965cc2256ea?q=80&w=870&auto=format&fit=crop" },
+            { id: 5, name: "خاتم ملكي أحمر", price: 2100, description: "خاتم مرصع بحجر الياقوت الأحمر الجذاب.", img: "https://media.istockphoto.com/id/2077222877/fr/photo/bague-bijoux-pierres-pr%C3%A9cieuses.webp?a=1&b=1&s=612x612&w=0&k=20&c=OUIgGMG3OGlm4MnWHh3HnHY7NNypX-WglWqKZcDc5CY=" },
+            { id: 6, name: "خاتم فضة عيار 925 للرجال", price: 7000, description: "خاتم رجالي فضي، مقاس 11.", img: "https://fathyibrahim.com/cdn/shop/files/MR00-3S-8-1_1000x.jpg?v=1742217351" },
         ];
 
         let cart = JSON.parse(localStorage.getItem('luxora_cart')) || [];
@@ -228,7 +229,7 @@
             let total = 0;
             container.innerHTML = cart.map(item => {
                 total += item.price;
-                return `<div style="padding: 10px; border-bottom: 1px solid #eee;">${item.name} - ${item.price} درهم</div>`;
+                return `<div style="background: rgba(0,0,0,0.03); margin-bottom: 5px; padding: 10px; border-radius: 8px;">${item.name} - ${item.price} درهم</div>`;
             }).join('');
             document.getElementById('cart-total').innerText = "الإجمالي: " + total + " درهم";
         }
@@ -238,6 +239,7 @@
         function sendWhatsApp() {
             const phone = "212621445495";
             let msg = "طلب جديد من Luxora:\n" + cart.map(i => `- ${i.name}`).join('\n');
+            msg += `\nالإجمالي: ${document.getElementById('cart-total').innerText}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
