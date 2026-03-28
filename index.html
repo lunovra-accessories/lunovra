@@ -37,7 +37,7 @@
             line-height: 1.6;
         }
 
-        /* --- 3. شاشة التحميل (Loader) المتطورة --- */
+        /* --- 3. شاشة التحميل (Loader) --- */
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -274,55 +274,55 @@
             display: block;
         }
 
-        /* --- 7. تفاصيل المنتج (Modal) --- */
+        /* --- 7. تفاصيل المنتج (Modal) - تحسين المربع والجوال --- */
         .modal { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.96); z-index: 5000; justify-content: center; align-items: center; 
+            background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center; 
             backdrop-filter: blur(20px); 
             padding: 20px;
         }
         .modal-content { 
             background: var(--white); width: 100%; max-width: 1100px; 
-            display: flex; flex-wrap: wrap; position: relative; 
+            display: flex; position: relative; 
             overflow: hidden; border: 1px solid var(--gold);
-            animation: modalSlideUp 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: modalSlideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
             max-height: 90vh;
         }
         @keyframes modalSlideUp { 
-            from { opacity: 0; transform: translateY(60px); } 
-            to { opacity: 1; transform: translateY(0); } 
+            from { opacity: 0; transform: translateY(40px) scale(0.98); } 
+            to { opacity: 1; transform: translateY(0) scale(1); } 
         }
 
         .close-modal {
-            position: absolute; top: 25px; left: 25px; z-index: 100; 
-            cursor: pointer; color: var(--gold); font-size: 22px; 
-            background: var(--dark); width: 50px; height: 50px; 
+            position: absolute; top: 20px; left: 20px; z-index: 100; 
+            cursor: pointer; color: var(--gold); font-size: 20px; 
+            background: var(--dark); width: 45px; height: 45px; 
             display: flex; align-items: center; justify-content: center; 
             border-radius: 50%; border: 1px solid var(--gold);
             transition: var(--transition);
         }
         .close-modal:hover { background: var(--gold); color: var(--dark); transform: rotate(90deg); }
 
-        .modal-img { flex: 1.3; min-width: 450px; height: 700px; object-fit: cover; }
+        .modal-img { flex: 1.2; min-width: 450px; height: 700px; object-fit: cover; }
         .modal-info { 
-            flex: 1; padding: 70px; min-width: 450px; background: var(--white); 
+            flex: 1; padding: 60px; min-width: 450px; background: var(--white); 
             display: flex; flex-direction: column; justify-content: center; 
         }
         
-        .modal-info h2 { font-family: 'Cinzel', serif; font-size: 2.5rem; margin-bottom: 25px; color: var(--dark); border-bottom: 3px solid var(--gold); display: inline-block; padding-bottom: 15px; }
-        .modal-info p { color: #444; font-size: 1.15rem; line-height: 2.2; margin-bottom: 40px; text-align: justify; }
+        .modal-info h2 { font-family: 'Cinzel', serif; font-size: 2.3rem; margin-bottom: 20px; color: var(--dark); border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 10px; }
+        .modal-info p { color: #444; font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; text-align: justify; }
 
-        .qty-box { margin-bottom: 40px; }
-        .qty-box label { font-size: 14px; color: #888; text-transform: uppercase; letter-spacing: 3px; display: block; margin-bottom: 15px; }
-        .qty-box input { width: 100px; padding: 15px; border: 1px solid #ccc; outline: none; font-weight: bold; text-align: center; font-size: 1.1rem; }
+        .qty-box { margin-bottom: 30px; }
+        .qty-box label { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 10px; }
+        .qty-box input { width: 90px; padding: 12px; border: 1px solid #ccc; outline: none; font-weight: bold; text-align: center; }
 
         .add-btn { 
             background: var(--dark); color: var(--gold); border: 1px solid var(--gold); 
-            padding: 25px; cursor: pointer; width: 100%; font-weight: 900; 
-            text-transform: uppercase; letter-spacing: 5px; transition: var(--transition);
-            font-size: 1.1rem;
+            padding: 22px; cursor: pointer; width: 100%; font-weight: 900; 
+            text-transform: uppercase; letter-spacing: 4px; transition: var(--transition);
+            font-size: 1rem;
         }
-        .add-btn:hover { background: var(--gold); color: var(--dark); letter-spacing: 7px; }
+        .add-btn:hover { background: var(--gold); color: var(--dark); }
 
         /* --- 8. الحقيبة الجانبية (Sidebar) --- */
         .sidebar { 
@@ -343,9 +343,7 @@
         .cart-item {
             display: flex; justify-content: space-between; align-items: center;
             padding: 30px 0; border-bottom: 1px solid #f2f2f2;
-            animation: fadeIn 0.6s ease;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         .cart-item-info strong { display: block; font-size: 17px; margin-bottom: 8px; color: var(--dark); }
         .cart-item-info span { color: var(--gold); font-family: 'Cinzel'; font-size: 16px; font-weight: 700; }
@@ -369,7 +367,7 @@
             letter-spacing: 3px; pointer-events: none;
         }
 
-        /* --- 10. ميديا كويري للجوال --- */
+        /* --- 10. ميديا كويري للجوال (التحسين المربع) --- */
         @media (max-width: 1024px) {
             main { grid-template-columns: repeat(2, 1fr); gap: 35px; }
             .modal-img { min-width: 100%; height: 500px; }
@@ -389,10 +387,27 @@
             .product-card h3 { font-size: 0.9rem; }
             .product-card .price { font-size: 1.1rem; }
 
-            .modal-content { max-height: 95vh; overflow-y: auto; }
-            .modal-img { height: 320px; }
-            .modal-info { padding: 30px 20px; }
-            .modal-info h2 { font-size: 1.8rem; }
+            /* المودال المربع للجوال */
+            .modal-content { 
+                flex-direction: column; 
+                max-height: 85vh; 
+                width: 95%;
+                overflow-y: auto;
+            }
+            .modal-img { 
+                min-width: 100%; 
+                height: auto; 
+                aspect-ratio: 1/1; /* شكل مربع تماماً في الجوال */
+                border-bottom: 1px solid var(--gold);
+            }
+            .modal-info { 
+                min-width: 100%; 
+                padding: 30px 20px; 
+                text-align: center;
+                display: block; /* لضمان التمرير الطبيعي */
+            }
+            .modal-info h2 { font-size: 1.6rem; margin-top: 10px; }
+            .modal-info p { text-align: center; font-size: 0.95rem; }
             
             .sidebar { width: 100%; padding: 40px 20px; }
         }
@@ -473,7 +488,7 @@
     <div id="toast">ADDED TO COLLECTION</div>
 
     <script>
-        /* قاعدة البيانات المفصلة للمنتجات */
+        /* قاعدة البيانات الكاملة للمنتجات */
         const allProducts = [
             // --- النساء ---
             { 
