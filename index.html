@@ -1,285 +1,567 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>VALERIA | Maison de Luxe</title>
+
+    <title>LUXORA | Maison de Luxe</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Cairo:wght@300;400;700&family=Cinzel:wght@400;900&display=swap" rel="stylesheet">
+
     
+
     <style>
+
         :root {
+
             --gold: #d4af37; /* ذهبي عيار 24 */
+
             --gold-gradient: linear-gradient(135deg, #b8860b 0%, #f1d592 50%, #b8860b 100%);
+
             --black: #050505;
+
             --white: #ffffff;
+
             --soft-gray: #f9f9f9;
+
             --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+
         }
+
+
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+
         
+
         body { 
+
             background-color: var(--white); 
+
             color: var(--black); 
+
             overflow-x: hidden;
+
             line-height: 1.6;
+
         }
+
+
 
         /* هيدر سينمائي */
+
         header { 
+
             position: fixed; top: 0; width: 100%; z-index: 1000;
+
             background: rgba(255, 255, 255, 0.9);
+
             backdrop-filter: blur(20px);
+
             padding: 20px 8%; 
+
             display: flex; justify-content: space-between; align-items: center;
+
             border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+
         }
+
+
 
         .logo { 
+
             font-family: 'Cinzel', serif;
+
             font-size: 32px; font-weight: 900; 
+
             letter-spacing: 8px; color: var(--black);
+
             text-decoration: none; transition: var(--transition);
+
         }
+
         .logo:hover { color: var(--gold); letter-spacing: 12px; }
 
+
+
         .cart-trigger {
+
             cursor: pointer; position: relative;
+
             padding: 5px; transition: var(--transition);
+
         }
-        /* أيقونة الحقيبة الفخمة الجديدة */
-        .cart-icon-svg { width: 32px; height: 32px; fill: none; stroke: var(--black); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-        
+
+        .cart-icon-svg { width: 30px; height: 30px; stroke: var(--black); fill: none; stroke-width: 1.2; }
+
         #cart-count { 
+
             background: var(--gold-gradient); color: var(--black);
+
             font-size: 10px; width: 20px; height: 20px;
+
             display: flex; align-items: center; justify-content: center;
+
             border-radius: 50%; position: absolute; top: -5px; right: -8px; font-weight: 900;
+
         }
+
+
 
         /* شبكة المنتجات */
+
         main { 
+
             display: grid; grid-template-columns: repeat(2, 1fr); 
+
             gap: 40px 20px; padding: 140px 5% 60px; 
+
             max-width: 1400px; margin: 0 auto;
+
         }
+
+
 
         @media (min-width: 768px) {
+
             main { grid-template-columns: repeat(3, 1fr); gap: 60px 40px; padding: 160px 8% 80px; }
+
         }
+
+
 
         .product-card { 
+
             position: relative; overflow: hidden; cursor: pointer;
+
             transition: var(--transition);
+
         }
+
+
 
         .img-wrapper {
+
             position: relative; overflow: hidden; background: var(--soft-gray);
+
             aspect-ratio: 4/5;
+
         }
 
+
+
         .product-card img { 
+
             width: 100%; height: 100%; object-fit: cover; 
+
             transition: transform 1.2s ease;
+
         }
+
+
 
         .product-card:hover img { transform: scale(1.1); }
 
+
+
         .quick-view {
+
             position: absolute; bottom: -50px; width: 100%;
+
             background: rgba(255, 255, 255, 0.9); padding: 15px;
+
             text-align: center; font-size: 12px; letter-spacing: 2px;
+
             transition: var(--transition); opacity: 0;
+
         }
+
         .product-card:hover .quick-view { bottom: 0; opacity: 1; }
 
+
+
         .product-info { padding-top: 20px; text-align: center; }
+
         .product-card h3 { 
+
             font-family: 'Playfair Display', serif; font-size: 1.1rem;
+
             font-weight: 700; color: #111; margin-bottom: 5px;
+
         }
+
         .product-card .price { 
+
             color: var(--gold); font-size: 1rem; font-weight: 300; letter-spacing: 1px;
+
         }
+
+
 
         /* المودال الملكي */
+
         .modal { 
+
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
+
             z-index: 2000; justify-content: center; align-items: center; padding: 20px;
+
         }
+
         .modal-content { 
+
             background: var(--white); width: 100%; max-width: 1000px; display: flex; 
+
             flex-wrap: wrap; position: relative; animation: slideIn 0.8s var(--transition);
+
         }
+
         @keyframes slideIn { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+
         
+
         .modal-img { flex: 1.2; min-width: 350px; height: 600px; object-fit: cover; }
+
         .modal-info { flex: 1; padding: 60px 40px; min-width: 350px; background: #fff; position: relative; }
+
         
+
         .close-modal { position: absolute; top: 20px; left: 20px; cursor: pointer; font-size: 20px; color: #ccc; transition: 0.3s; }
+
         .close-modal:hover { color: var(--gold); transform: rotate(90deg); }
 
+
+
         .modal-info h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 20px; line-height: 1.1; }
+
         .modal-info p { color: #666; font-size: 1rem; margin-bottom: 40px; font-weight: 300; }
 
+
+
         .add-btn { 
+
             background: var(--black); color: var(--white); border: 1px solid var(--black); 
+
             padding: 20px; cursor: pointer; width: 100%; font-weight: 700; 
+
             letter-spacing: 3px; transition: var(--transition); text-transform: uppercase;
+
         }
+
         .add-btn:hover { background: transparent; color: var(--black); border-color: var(--gold); }
 
+
+
         /* السايدبار الفاخر */
+
         .sidebar { 
+
             position: fixed; top: 0; left: -100%; width: 450px; height: 100vh; 
+
             background: white; z-index: 3000; padding: 60px 40px; 
+
             transition: var(--transition); box-shadow: 20px 0 80px rgba(0,0,0,0.2);
+
         }
+
         .sidebar.active { left: 0; }
+
         @media (max-width: 767px) { .sidebar { width: 100%; } }
 
+
+
         .whatsapp-btn { 
+
             background: var(--gold-gradient); color: var(--black); border: none; 
+
             padding: 22px; cursor: pointer; width: 100%; font-weight: 900; 
+
             margin-top: 40px; letter-spacing: 2px; text-transform: uppercase;
+
             box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+
         }
+
+
 
         #toast { 
+
             position: fixed; top: 40px; left: 50%; transform: translateX(-50%); 
+
             background: var(--black); color: var(--gold); padding: 15px 40px; 
+
             font-size: 12px; letter-spacing: 2px; opacity: 0; transition: var(--transition); z-index: 4000;
+
         }
+
     </style>
+
 </head>
+
 <body>
 
+
+
     <header>
-        <div class="logo">VALERIA</div>
+
+        <div class="logo">LUXORA</div>
+
         <div class="cart-trigger" onclick="toggleCart()">
+
             <svg class="cart-icon-svg" viewBox="0 0 24 24">
-                <path d="M6 8V7a6 6 0 1 1 12 0v1m2 0H4a1 1 0 0 0-1 1v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V9a1 1 0 0 0-1-1z"></path>
+
+                <path d="M5 5h2l2 10h10L21 7H8.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+
+                <path d="M10 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm7 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" fill="currentColor"/>
+
             </svg>
+
             <span id="cart-count">0</span>
+
         </div>
+
     </header>
+
+
 
     <main id="products-container"></main>
 
-    <div id="toast">COLLECTION ADDED • VALERIA</div>
+
+
+    <div id="toast">COLLECTION ADDED • LUXORA</div>
+
+
 
     <div id="product-modal" class="modal" onclick="closeModal()">
+
         <div class="modal-content" onclick="event.stopPropagation()">
+
             <div class="close-modal" onclick="closeModal()">✕</div>
+
             <img id="modal-image" src="" class="modal-img">
+
             <div class="modal-info">
+
                 <h2 id="modal-title"></h2>
+
                 <div id="modal-price" style="color: var(--gold); font-size: 1.8rem; margin-bottom: 20px; font-family: 'Cinzel';"></div>
+
                 <p id="modal-description"></p>
+
                 <div style="margin-bottom: 30px;">
+
                     <label style="font-size: 10px; color: #aaa; letter-spacing: 2px;">SELECT QUANTITY</label>
+
                     <input type="number" id="product-qty" value="1" min="1" style="width: 100%; padding: 15px; border: none; border-bottom: 1px solid #eee; font-size: 1.2rem; outline: none;">
+
                 </div>
+
                 <button id="modal-add-btn" class="add-btn">Reserve Now</button>
+
             </div>
+
         </div>
+
     </div>
+
+
 
     <div id="cart-sidebar" class="sidebar">
+
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px;">
+
             <h3 style="font-family: 'Cinzel'; letter-spacing: 4px; font-size: 1.5rem;">MY CURATION</h3>
+
             <span style="cursor: pointer; font-size: 24px;" onclick="toggleCart()">✕</span>
+
         </div>
+
         <div id="cart-items" style="max-height: 55vh; overflow-y: auto;"></div>
+
         <div id="cart-total" style="margin-top: 40px; border-top: 1px solid #eee; padding-top: 30px; text-align: center; font-family: 'Cinzel'; font-size: 1.8rem; color: var(--gold);"></div>
+
         <button class="whatsapp-btn" onclick="sendWhatsApp()">Checkout via Concierge</button>
+
     </div>
 
+
+
     <script>
+
         const products = [
+
             { id: 1, name: "عقد الزمرد الملكي", price: 3400, description: "نقاء الزمرد الكولومبي يلتقي بصياغة الذهب عيار 21 ليصنع تحفة خالدة.", img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800" },
+
             { id: 2, name: "خاتم الألماس الهندسي", price: 1850, description: "تصميم يتجاوز الزمن، يبرز بريق الألماس في إطار من الذهب الأبيض النقي.", img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800" },
+
             { id: 3, name: "سوار الكريستال السويسري", price: 920, description: "رقة التصميم وسحر البريق في قطعة صُممت لتكون جزءاً من حكايتك اليومية.", img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800" },
+
             { id: 4, name: "ساعة الكرونوغراف الذهبية", price: 5200, description: "دقة سويسرية مغلفة بفخامة الذهب الخالص، إصدار محدود للنخبة.", img: "https://images.unsplash.com/photo-1772949400376-5965cc2256ea?q=80&w=870&auto=format&fit=crop" },
+
             { id: 5, name: "خاتم الياقوت القرمزي", price: 2100, description: "حجر ياقوت أحمر بقطع ملكي يمنحك حضوراً يسرق الأضواء.", img: "https://media.istockphoto.com/id/2077222877/fr/photo/bague-bijoux-pierres-pr%C3%A9cieuses.webp?a=1&b=1&s=612x612&w=0&k=20&c=OUIgGMG3OGlm4MnWHh3HnHY7NNypX-WglWqKZcDc5CY=" },
+
             { id: 6, name: "خاتم فضة الفارس النبيل", price: 7000, description: "الفضة الإسترلينية في أبهى صورها بتصميم يعكس القوة والنبلاء.", img: "https://fathyibrahim.com/cdn/shop/files/MR00-3S-8-1_1000x.jpg?v=1742217351" },
+
         ];
 
-        let cart = JSON.parse(localStorage.getItem('valeria_v1_cart')) || [];
+
+
+        let cart = JSON.parse(localStorage.getItem('luxora_v3_cart')) || [];
+
+
 
         function displayProducts() {
+
             const container = document.getElementById('products-container');
+
             container.innerHTML = products.map(p => `
+
                 <div class="product-card" onclick="openModal(${p.id})">
+
                     <div class="img-wrapper">
+
                         <img src="${p.img}">
+
                         <div class="quick-view">VIEW DETAILS</div>
+
                     </div>
+
                     <div class="product-info">
+
                         <h3>${p.name}</h3>
+
                         <div class="price">${p.price.toLocaleString()} MAD</div>
+
                     </div>
+
                 </div>
+
             `).join('');
+
         }
 
+
+
         function openModal(id) {
+
             const p = products.find(prod => prod.id === id);
+
             document.getElementById('modal-title').innerText = p.name;
+
             document.getElementById('modal-price').innerText = p.price.toLocaleString() + " MAD";
+
             document.getElementById('modal-description').innerText = p.description;
+
             document.getElementById('modal-image').src = p.img;
+
             document.getElementById('product-qty').value = 1;
+
             document.getElementById('modal-add-btn').onclick = () => addToCart(p, parseInt(document.getElementById('product-qty').value));
+
             document.getElementById('product-modal').style.display = 'flex';
+
         }
+
+
 
         function closeModal() { document.getElementById('product-modal').style.display = 'none'; }
 
+
+
         function addToCart(product, qty) {
+
             cart.push({ ...product, qty, cartId: Date.now() });
-            localStorage.setItem('valeria_v1_cart', JSON.stringify(cart));
+
+            localStorage.setItem('luxora_v3_cart', JSON.stringify(cart));
+
             updateCartUI();
+
             closeModal();
+
             const toast = document.getElementById('toast');
+
             toast.style.opacity = '1';
+
             setTimeout(() => toast.style.opacity = '0', 3000);
+
         }
+
+
 
         function updateCartUI() {
+
             document.getElementById('cart-count').innerText = cart.length;
+
             const container = document.getElementById('cart-items');
+
             let total = 0;
+
             container.innerHTML = cart.map(item => {
+
                 total += (item.price * item.qty);
+
                 return `<div style="margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #f9f9f9; display: flex; justify-content: space-between; align-items: center;">
+
                     <div>
+
                         <strong style="font-family: Playfair Display; font-size: 1.1rem;">${item.name}</strong><br>
+
                         <small style="color: var(--gold); letter-spacing: 1px;">${item.qty} UNIT(S) • ${item.price.toLocaleString()} MAD</small>
+
                     </div>
+
                     <button onclick="removeFromCart(${item.cartId})" style="border:none; color:#ddd; background:none; cursor:pointer; font-size: 20px;">✕</button>
+
                 </div>`;
+
             }).join('');
+
             document.getElementById('cart-total').innerText = total.toLocaleString() + " MAD";
+
         }
 
+
+
         function removeFromCart(cartId) {
+
             cart = cart.filter(item => item.cartId !== cartId);
-            localStorage.setItem('valeria_v1_cart', JSON.stringify(cart));
+
+            localStorage.setItem('luxora_v3_cart', JSON.stringify(cart));
+
             updateCartUI();
+
         }
+
+
 
         function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
 
+
+
         function sendWhatsApp() {
+
             if (cart.length === 0) return;
+
             const phone = "212621445495";
-            let msg = "Luxury Inquiry from VALERIA:\n\n" + cart.map(i => `• ${i.name} (Qty: ${i.qty})`).join('\n');
+
+            let msg = "Luxury Inquiry from LUXORA:\n\n" + cart.map(i => `• ${i.name} (Qty: ${i.qty})`).join('\n');
+
             msg += `\n\nTotal Value: ${document.getElementById('cart-total').innerText}\n\nPlease contact me for the arrangement.`;
+
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+
         }
 
+
+
         window.onload = () => { displayProducts(); updateCartUI(); };
+
     </script>
+
 </body>
+
 </html>
