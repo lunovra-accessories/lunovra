@@ -8,8 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cairo:wght@300;400;700&family=Playfair+Display:italic,wght@700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- 1. المتغيرات والألوان الملكية ---
-        */
+        /* --- 1. المتغيرات والألوان الملكية --- */
         :root {
             --gold: #c5a059;
             --gold-light: #e2c285;
@@ -21,8 +20,7 @@
             --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* --- 2. تصفير الإعدادات والأساسيات ---
-        */
+        /* --- 2. تصفير الإعدادات والأساسيات --- */
         * { 
             margin: 0; 
             padding: 0; 
@@ -39,8 +37,7 @@
             line-height: 1.6;
         }
 
-        /* --- 3. شاشة التحميل (Loader) المتطورة ---
-        */
+        /* --- 3. شاشة التحميل (Loader) المتطورة --- */
         #loader {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -86,8 +83,7 @@
             100% { left: 100%; }
         }
 
-        /* --- 4. شاشة اختيار القسم (Entry Screen) ---
-        */
+        /* --- 4. شاشة اختيار القسم (Entry Screen) --- */
         #entry-screen {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -146,8 +142,13 @@
         .selection-half:hover h2 { transform: translateY(-10px); color: var(--gold); }
         .selection-half:hover p { opacity: 1; transform: translateY(0); }
 
-        /* --- 5. الهيدر (Sticky Header) ---
-        */
+        /* استجابة الشاشة للشاشات الصغيرة */
+        @media (max-width: 768px) {
+            #entry-screen { flex-direction: column; }
+            .selection-half h2 { font-size: 2rem; }
+        }
+
+        /* --- 5. الهيدر (Sticky Header) --- */
         header { 
             position: sticky;
             top: 0;
@@ -162,9 +163,8 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
-        /* زر الرجوع المتطور */
         #back-btn-container {
-            display: none; /* يظهر بالـ JS */
+            display: none;
             align-items: center;
             cursor: pointer;
             color: var(--gold);
@@ -213,8 +213,7 @@
             box-shadow: 0 5px 15px rgba(197, 160, 89, 0.4);
         }
 
-        /* --- 6. شبكة عرض المنتجات ---
-        */
+        /* --- 6. شبكة عرض المنتجات --- */
         main { 
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
@@ -283,8 +282,7 @@
             display: block;
         }
 
-        /* --- 7. تفاصيل المنتج (Modal) ---
-        */
+        /* --- 7. تفاصيل المنتج (Modal) --- */
         .modal { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.95); z-index: 5000; justify-content: center; align-items: center; 
@@ -338,8 +336,7 @@
         }
         .add-btn:hover { background: var(--gold); color: var(--dark); letter-spacing: 6px; }
 
-        /* --- 8. الحقيبة الجانبية (Sidebar) ---
-        */
+        /* --- 8. الحقيبة الجانبية (Sidebar) --- */
         .sidebar { 
             position: fixed; top: 0; left: -100%; width: 450px; height: 100vh; 
             background: var(--white); z-index: 6000; padding: 60px 40px; 
@@ -376,8 +373,7 @@
         }
         .whatsapp-btn:hover { background: #25D366; color: white; border-color: #25D366; }
 
-        /* --- 9. التنبيهات (Toasts) ---
-        */
+        /* --- 9. التنبيهات (Toasts) --- */
         #toast { 
             position: fixed; bottom: 50px; left: 50%; transform: translateX(-50%); 
             background: var(--dark); color: var(--gold); padding: 18px 50px; 
@@ -449,8 +445,7 @@
             <h3>THE SELECTION</h3>
             <span style="cursor: pointer; font-size: 24px; color: var(--gold);" onclick="toggleCart()">✕</span>
         </div>
-        <div id="cart-items-container" style="max-height: 55vh; overflow-y: auto; padding-right: 10px;">
-            </div>
+        <div id="cart-items-container" style="max-height: 55vh; overflow-y: auto; padding-right: 10px;"></div>
         <div id="cart-summary" style="margin-top: 40px; padding-top: 25px; border-top: 2px solid #eee;">
             <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
                 <span style="font-weight: 300;">TOTAL / الإجمالي</span>
@@ -463,107 +458,90 @@
     <div id="toast">ADDED TO COLLECTION</div>
 
     <script>
-        /* --- 10. قاعدة بيانات المنتجات الضخمة ---
-        */
+        // قاعدة البيانات الكاملة مع تعديل خاتم الياقوت
         const allProducts = [
             // --- فئة النساء (Women) ---
             { 
                 id: 1, type: 'women', name: "عقد الزمرد الملكي", price: 3400, 
-                description: "تحفة فنية من الزمرد الكولومبي الأصيل، محاطة بإطار من الذهب الأبيض عيار 18 قيراط. صُممت هذه القطعة لتخطف الأنظار في أرقى السهرات الملكية والمناسبات الكبرى.", 
+                description: "تحفة فنية من الزمرد الكولومبي الأصيل، محاطة بإطار من الذهب الأبيض عيار 18 قيراط. صُممت هذه القطعة لتخطف الأنظار.", 
                 img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800" 
             },
             { 
+                id: 11, type: 'women', name: "خاتم الياقوت القرمزي", price: 2100, 
+                description: "خاتم نسائي ساحر مرصع بحجر ياقوت أحمر طبيعي، يحيط به هالة من الفصوص الصغيرة المتلألئة لإطلالة مفعمة بالأنوثة والفخامة.", 
+                img: "https://media.istockphoto.com/id/2077222877/fr/photo/bague-bijoux-pierres-pr%C3%A9cieuses.webp?a=1&b=1&s=612x612&w=0&k=20&c=OUIgGMG3OGlm4MnWHh3HnHY7NNypX-WglWqKZcDc5CY=" 
+            },
+            { 
                 id: 2, type: 'women', name: "خاتم الألماس الهندسي", price: 1850, 
-                description: "خاتم عصري يجسد التوازن بين الفخامة والبساطة. يتميز بقطع ألماس مركزية محاطة بنقوش هندسية دقيقة تعكس الضوء من كل زاوية.", 
+                description: "خاتم عصري يجسد التوازن بين الفخامة والبساطة. يتميز بقطع ألماس مركزية تعكس الضوء من كل زاوية.", 
                 img: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800" 
             },
             { 
                 id: 3, type: 'women', name: "سوار الكريستال الناعم", price: 920, 
-                description: "سوار رقيق مصنوع يدويًا من كريستال السواروفسكي الصافي، يضفي لمسة من الأنوثة والنعومة على معصمك، مثالي للاستخدام اليومي الراقي.", 
+                description: "سوار رقيق مصنوع يدويًا من كريستال السواروفسكي الصافي، يضفي لمسة من الأنوثة والنعومة على معصمك.", 
                 img: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800" 
             },
             { 
                 id: 4, type: 'women', name: "أقراط الياقوت الأزرق", price: 1200, 
-                description: "أقراط متدلية سحرية تضم أحجار الياقوت الأزرق الطبيعي. صُممت لتمنحك إطلالة ملكية مستوحاة من العصور الكلاسيكية العريقة.", 
+                description: "أقراط متدلية سحرية تضم أحجار الياقوت الأزرق الطبيعي. مستوحاة من العصور الكلاسيكية العريقة.", 
                 img: "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800" 
             },
             { 
                 id: 5, type: 'women', name: "قلادة اللؤلؤ الطبيعي", price: 2700, 
-                description: "عقد من لآلئ البحار الجنوبية المختارة بعناية فائقة، تتوسطها قفلة من الذهب الخالص المرصع بالألماس.", 
+                description: "عقد من لآلئ البحار الجنوبية المختارة بعناية فائقة، تتوسطها قفلة من الذهب الخالص.", 
                 img: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800" 
             },
-            { 
-                id: 7, type: 'men', name: "خاتم الياقوت القرمزي", price: 2100, 
-                description: "خاتم رجالي ضخم مرصع بحجر ياقوت أحمر بدم الحمام. يجسد القوة والهيبة بلمسات فنية يدوية محفورة على الفضة الإسترلينية.", 
-                img: "https://media.istockphoto.com/id/2077222877/fr/photo/bague-bijoux-pierres-pr%C3%A9cieuses.webp?a=1&b=1&s=612x612&w=0&k=20&c=OUIgGMG3OGlm4MnWHh3HnHY7NNypX-WglWqKZcDc5CY=" 
-            }
 
-
-            
             // --- فئة الرجال (Men) ---
             { 
                 id: 6, type: 'men', name: "ساعة ليمتد إيديشين Gold", price: 5200, 
-                description: "ساعة ميكانيكية ذات إصدار محدود، تتميز بهيكل من الفولاذ المقاوم للصدأ المطلي بالذهب عيار 24. دقة سويسرية متناهية للرجل الذي لا يقبل بأقل من الكمال.", 
+                description: "ساعة ميكانيكية ذات إصدار محدود، تتميز بهيكل مطلي بالذهب عيار 24. دقة سويسرية متناهية.", 
                 img: "https://images.unsplash.com/photo-1772949400376-5965cc2256ea?q=80&w=870" 
             },
-            
             { 
                 id: 8, type: 'men', name: "خاتم فضة 925 نقي", price: 7000, 
-                description: "قطعة فنية فريدة من الفضة النقية بتصميم مستوحى من العمارة الأندلسية، صُمم خصيصاً للشخصيات القيادية التي تعشق التميز التاريخي.", 
+                description: "قطعة فنية فريدة من الفضة النقية بتصميم مستوحى من العمارة الأندلسية.", 
                 img: "https://fathyibrahim.com/cdn/shop/files/MR00-3S-8-1_1000x.jpg?v=1742217351" 
             },
             { 
                 id: 9, type: 'men', name: "ساعة الستانلس الكلاسيكية", price: 4100, 
-                description: "ساعة تجمع بين العملية والفخامة، مع ميناء أسود ملكي وعقارب مضيئة. مقاومة للماء والظروف الصعبة، رفيقك المثالي في العمل والترفيه.", 
+                description: "ساعة تجمع بين العملية والفخامة، مع ميناء أسود ملكي وعقارب مضيئة.", 
                 img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=800" 
             },
             { 
                 id: 10, type: 'men', name: "أزرار أكمام ألماسية", price: 1550, 
-                description: "أزرار أكمام (Cufflinks) مصنوعة من البلاتين المرصع بحبيبات الألماس الدقيقة، لتكتمل أناقتك الرسمية في أهم اجتماعاتك.", 
+                description: "أزرار أكمام مصنوعة من البلاتين المرصع بحبيبات الألماس الدقيقة.", 
                 img: "https://images.unsplash.com/photo-1617113931036-70138927054a?w=800" 
             }
         ];
 
         let cart = JSON.parse(localStorage.getItem('luxora_full_cart')) || [];
 
-        /* --- 11. منطق التحكم والتنقل ---
-        */
-
-        // دخول المتجر واختيار القسم
+        // منطق التحكم
         function enterStore(category) {
             const filtered = allProducts.filter(p => p.type === category);
             renderProducts(filtered);
-            
-            // تحريك الشاشات
             document.getElementById('entry-screen').style.transform = 'translateY(-100%)';
-            const backBtn = document.getElementById('back-btn-container');
-            backBtn.classList.add('visible');
-            
-            // تمرير للأعلى لضمان رؤية المنتجات
+            document.getElementById('back-btn-container').classList.add('visible');
             window.scrollTo(0,0);
         }
 
-        // العودة لشاشة الاختيار الرئيسية
         function goBackToHome() {
             document.getElementById('entry-screen').style.transform = 'translateY(0)';
             document.getElementById('back-btn-container').classList.remove('visible');
         }
 
-        // عرض المنتجات في الشبكة
         function renderProducts(products) {
             const grid = document.getElementById('products-grid');
             grid.innerHTML = products.map(p => `
                 <div class="product-card" onclick="openProduct(${p.id})">
-                    <div class="img-container">
-                        <img src="${p.img}" alt="${p.name}">
-                    </div>
+                    <div class="img-container"><img src="${p.img}" alt="${p.name}"></div>
                     <h3>${p.name}</h3>
                     <span class="price">${p.price.toLocaleString()} درهم</span>
                 </div>
             `).join('');
         }
 
-        // فتح نافذة تفاصيل المنتج
         function openProduct(id) {
             const product = allProducts.find(p => p.id === id);
             document.getElementById('modal-title').innerText = product.name;
@@ -571,25 +549,19 @@
             document.getElementById('modal-description').innerText = product.description;
             document.getElementById('modal-image').src = product.img;
             document.getElementById('product-qty').value = 1;
-            
-            document.getElementById('modal-add-btn').onclick = () => {
-                addToCart(product, parseInt(document.getElementById('product-qty').value));
-            };
-            
+            document.getElementById('modal-add-btn').onclick = () => addToCart(product, parseInt(document.getElementById('product-qty').value));
             document.getElementById('product-modal').style.display = 'flex';
         }
 
         function closeModal() { document.getElementById('product-modal').style.display = 'none'; }
 
-        /* --- 12. إدارة الحقيبة والعمليات ---
-        */
-
         function addToCart(product, qty) {
-            const cartItem = { ...product, qty, uniqueId: Date.now() };
-            cart.push(cartItem);
+            cart.push({ ...product, qty, uniqueId: Date.now() });
             saveAndRefresh();
             closeModal();
-            showToast();
+            const toast = document.getElementById('toast');
+            toast.style.opacity = '1';
+            setTimeout(() => toast.style.opacity = '0', 2500);
         }
 
         function removeFromCart(uid) {
@@ -603,13 +575,9 @@
         }
 
         function updateUI() {
-            // تحديث العدد
             document.getElementById('cart-count').innerText = cart.length;
-            
-            // تحديث القائمة
             const container = document.getElementById('cart-items-container');
             let total = 0;
-            
             container.innerHTML = cart.map(item => {
                 total += (item.price * item.qty);
                 return `
@@ -622,41 +590,22 @@
                     </div>
                 `;
             }).join('');
-            
             document.getElementById('final-price').innerText = total.toLocaleString() + " درهم";
         }
 
         function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('active'); }
 
-        function showToast() {
-            const t = document.getElementById('toast');
-            t.style.opacity = '1';
-            setTimeout(() => t.style.opacity = '0', 2500);
-        }
-
-        // إرسال الطلب للواتساب
         function checkout() {
-            if (cart.length === 0) {
-                alert("الحقيبة فارغة حالياً!");
-                return;
-            }
+            if (cart.length === 0) return alert("الحقيبة فارغة!");
             const phone = "212621445495";
-            let message = "*طلب ملكي جديد من LUXORA Boutique*\n";
-            message += "----------------------------------\n";
-            cart.forEach((item, index) => {
-                message += `${index+1}. *${item.name}* (الكمية: ${item.qty})\n`;
-            });
-            message += "----------------------------------\n";
-            message += `*الإجمالي النهائي:* ${document.getElementById('final-price').innerText}`;
-            
+            let message = "*طلب ملكي جديد من LUXORA*\n------------------\n";
+            cart.forEach((i, idx) => message += `${idx+1}. ${i.name} (x${i.qty})\n`);
+            message += `------------------\n*الإجمالي:* ${document.getElementById('final-price').innerText}`;
             window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
         }
 
-        /* --- 13. بدء التشغيل ---
-        */
         window.onload = () => {
             updateUI();
-            // تأخير شاشة التحميل لإعطاء شعور بالفخامة
             setTimeout(() => {
                 const loader = document.getElementById('loader');
                 loader.style.opacity = '0';
