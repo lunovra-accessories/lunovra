@@ -89,20 +89,35 @@
         .product-card h3 { font-size: 0.9rem; margin-bottom: 5px; height: 2.5em; overflow: hidden; font-weight: 700; color: #333; }
         .product-card .price { color: var(--gold); font-weight: 900; font-family: 'Cinzel', serif; font-size: 1.1rem; }
 
+        /* تعديلات المودال للحاسوب والجوانب */
         .modal { 
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.85); z-index: 5000; justify-content: center; align-items: flex-end; 
             backdrop-filter: blur(5px);
         }
         @media (min-width: 768px) { .modal { align-items: center; } }
+        
         .modal-content { 
             background: white; width: 100%; max-height: 90vh; 
             border-radius: 20px 20px 0 0; overflow: hidden; position: relative;
             display: flex; flex-direction: column;
             animation: slideUp 0.4s ease-out;
         }
-        @media (min-width: 768px) { .modal-content { width: 450px; border-radius: 15px; } }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        @media (min-width: 768px) { .modal-content { width: 480px; border-radius: 15px; } }
+        
+        .modal-img { width: 100%; height: auto; max-height: 350px; object-fit: cover; }
+        
+        /* المسافات الداخلية للنصوص */
+        .modal-body { 
+            padding: 25px 30px; 
+            flex: 1; 
+            overflow-y: auto; 
+        }
+        
+        .modal-footer { 
+            padding: 20px 30px; 
+            background: white; 
+        }
 
         .close-btn-royal {
             width: 35px; height: 35px; border: 1px solid var(--gold); border-radius: 50%;
@@ -162,9 +177,9 @@
             </div>
             <div class="modal-img-box"><img id="modal-image" src="" class="modal-img"></div>
             <div class="modal-body">
-                <h2 id="modal-title" style="font-family:'Cinzel';"></h2>
-                <div id="modal-price" style="color:var(--gold); font-weight:900; font-size:1.5rem; margin:10px 0;"></div>
-                <p id="modal-desc" style="color:#666; font-size:0.9rem;"></p>
+                <h2 id="modal-title" style="font-family:'Cinzel'; margin-bottom: 10px;"></h2>
+                <div id="modal-price" style="color:var(--gold); font-weight:900; font-size:1.5rem; margin-bottom: 15px;"></div>
+                <p id="modal-desc" style="color:#666; font-size:1rem; line-height: 1.6;"></p>
             </div>
             <div class="modal-footer">
                 <button id="add-to-cart-btn" class="btn-royal">إضافة إلى الحقيبة</button>
@@ -237,15 +252,11 @@
             document.body.style.overflow = isActive ? 'hidden' : 'auto';
         }
 
-        // تم التعديل هنا: إضافة للمنتج فقط دون فتح الحقيبة
         function addToCart(p) {
             cart.push({ ...p, uid: Date.now() });
             updateUI();
-            
-            closeModal(); // إغلاق نافذة المنتج
-            showToast();  // إظهار رسالة نجاح صغيرة فقط
-            
-            // تم حذف كود الفتح التلقائي (setTimeout) من هنا نهائياً
+            closeModal();
+            showToast();
         }
 
         function updateUI() {
