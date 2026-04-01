@@ -1,4 +1,4 @@
-# 💎 LUXORA - Premium Jewelry & Accessories Store 🇲🇦
+# 💎 LUNOVRA - Premium Jewelry & Accessories Store 🇲🇦
 
 > **متجر إلكتروني عصري، سريع، ومتكامل مع نظام طلبات WhatsApp.**
 
